@@ -17,6 +17,9 @@ import android.test.ActivityInstrumentationTestCase2;
 public class TemperatureConverterActivityTest extends
         ActivityInstrumentationTestCase2<TemperatureConverterActivity> {
 
+    /** Creating Fixture */
+    private TemperatureConverterActivity mActivity;
+
     /**
      */
     public TemperatureConverterActivityTest() {
@@ -36,6 +39,7 @@ public class TemperatureConverterActivityTest extends
      */
     protected void setUp() throws Exception {
         super.setUp();
+        mActivity = getActivity();
     }
 
     /* (非 Javadoc)
@@ -43,6 +47,13 @@ public class TemperatureConverterActivityTest extends
      */
     protected void tearDown() throws Exception {
         super.tearDown();
+    }
+
+    /**
+     * Test preconditions
+     */
+    public final void testPreconditions() {
+        assertNotNull(mActivity);
     }
 
 }
