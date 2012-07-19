@@ -74,4 +74,14 @@ public class TemperatureConverterActivityTest extends
         assertNotNull(mFahrenheit);
     }
 
+
+    /******************************************************************************
+     * Translating requirements to tests
+     ******************************************************************************/
+
+    public final void testInputFieldsは空ではじまる() {
+        assertEquals("", mCelsius.getText().toString());
+        assertEquals("", mFahrenheit.getText().toString());
+    }
+
 }
