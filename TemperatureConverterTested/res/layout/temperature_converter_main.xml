@@ -13,24 +13,32 @@
         android:id="@+id/celsius_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/celsius" />
+        android:layout_marginLeft="@dimen/margin"
+        android:text="@string/celsius"
+        android:textSize="@dimen/label_text_size" />
 
     <EditText
         android:id="@+id/celsius"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
         android:text="" />
 
     <TextView
         android:id="@+id/fahrenheit_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fahrenheit" />
+        android:layout_marginLeft="@dimen/margin"
+        android:text="@string/fahrenheit"
+        android:textSize="@dimen/label_text_size" />
 
     <EditText
         android:id="@+id/fahrenheit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
         android:text="" />
 
 </LinearLayout>
