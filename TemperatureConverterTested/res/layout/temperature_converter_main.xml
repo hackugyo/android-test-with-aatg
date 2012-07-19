@@ -17,12 +17,13 @@
         android:text="@string/celsius"
         android:textSize="@dimen/label_text_size" />
 
-    <EditText
+    <com.example.aatg.tc.EditNumber
         android:id="@+id/celsius"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
+        android:gravity="right|center_vertical"
         android:text="" />
 
     <TextView
@@ -33,12 +34,13 @@
         android:text="@string/fahrenheit"
         android:textSize="@dimen/label_text_size" />
 
-    <EditText
+    <com.example.aatg.tc.EditNumber
         android:id="@+id/fahrenheit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin"
         android:layout_marginRight="@dimen/margin"
+        android:gravity="right|center_vertical"
         android:text="" />
 
 </LinearLayout>

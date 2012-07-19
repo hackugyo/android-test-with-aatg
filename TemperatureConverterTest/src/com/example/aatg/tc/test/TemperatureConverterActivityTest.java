@@ -6,10 +6,18 @@
  * Copyright (c) 2012 Appirits. All rights reserved.
  *
  */
-package com.example.aatg.tc;
+package com.example.aatg.tc.test;
+
+import com.example.aatg.tc.EditNumber;
+import com.example.aatg.tc.R;
+import com.example.aatg.tc.TemperatureConverter;
+import com.example.aatg.tc.TemperatureConverterActivity;
+import com.example.aatg.tc.R.id;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.UiThreadTest;
 import static android.test.ViewAsserts.*;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -28,8 +36,8 @@ public class TemperatureConverterActivityTest extends
 
     /** Creating Fixture */
     private TemperatureConverterActivity mActivity;
-    private EditText mCelsius;
-    private EditText mFahrenheit;
+    private EditNumber mCelsius;
+    private EditNumber mFahrenheit;
     private TextView mCelsiusLabel;
     private TextView mFahrenheitLabel;
 
@@ -53,8 +61,8 @@ public class TemperatureConverterActivityTest extends
     protected void setUp() throws Exception {
         super.setUp();
         mActivity = getActivity();
-        mCelsius    = (EditText)mActivity.findViewById(com.example.aatg.tc.R.id.celsius);
-        mFahrenheit = (EditText)mActivity.findViewById(com.example.aatg.tc.R.id.fahrenheit);
+        mCelsius    = (EditNumber)mActivity.findViewById(com.example.aatg.tc.R.id.celsius);
+        mFahrenheit = (EditNumber)mActivity.findViewById(com.example.aatg.tc.R.id.fahrenheit);
         mCelsiusLabel = (TextView)mActivity.findViewById(com.example.aatg.tc.R.id.celsius_label);
         mFahrenheitLabel = (TextView)mActivity.findViewById(com.example.aatg.tc.R.id.fahrenheit_label);
     }
@@ -152,4 +160,44 @@ public class TemperatureConverterActivityTest extends
         assertEquals(expected, lp.rightMargin);
     }
 
+    public final void testEditTextの右寄せ() {
+        final int expected = Gravity.RIGHT|Gravity.CENTER_VERTICAL;
+        int actual = mCelsius.getGravity();
+        assertEquals(
+                String.format("Expected 0x%02x but was 0x%02x", expected, actual),
+                expected,
+                actual);
+        actual = mFahrenheit.getGravity();
+        assertEquals(
+                String.format("Expected 0x%02x but was 0x%02x", expected, actual),
+                expected,
+                actual);
+    }
+
+    public final void test仮想キーボード用のスペースがある() {
+        final int expected = 280; // えええ，280って数値で固定なの！？
+        final int actual = mFahrenheit.getBottom(); // えええ，一番下のパーツがmFahrenheitだと決めつけていいの！？
+        assertTrue(actual <= expected);
+    }
+
+    /******************************************************************************
+     * Tmeperature conersion
+     ******************************************************************************/
+    @UiThreadTest
+    public final void test華氏Fから摂氏Cへ変換して表示できる() {
+        // clear / setNumberは，EditTextの拡張クラスのメソッド．
+        mCelsius.clear();
+        mFahrenheit.clear();
+        final double f = 32.5;
+        mFahrenheit.requestFocus();
+        mFahrenheit.setNumber(f);
+        mCelsius.requestFocus();
+        // 変換メソッド呼び出し
+        final double expectedC = TemperatureConverter.fahrenheitToCelsius(f);
+        final double actualC = mCelsius.getNumber();
+        final double delta = Math.abs(expectedC - actualC);
+        final StringBuilder msg = new StringBuilder();
+        msg.append(f).append("F -> ").append(expectedC).append("C but was ").append(actualC).append("C (delta ").append(delta).append(")");
+        assertTrue(msg.toString(), delta < 0.005);
+    }
 }
