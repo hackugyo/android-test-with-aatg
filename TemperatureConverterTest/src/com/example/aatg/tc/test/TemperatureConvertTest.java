@@ -2,9 +2,6 @@
  * TemperatureConvertTestv.java
  * TemperatureConverterTest
  *
- * Created by 株式会社 Appirits on 2012/07/19
- * Copyright (c) 2012 Appirits. All rights reserved.
- *
  */
 package com.example.aatg.tc.test;
 
