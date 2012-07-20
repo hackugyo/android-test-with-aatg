@@ -10,6 +10,7 @@ package com.example.aatg.tc;
 
 import android.content.Context;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ public class EditNumber extends EditText {
      */
     public EditNumber(Context context) {
         super(context);
+        init();
     }
 
     /**
@@ -45,11 +47,12 @@ public class EditNumber extends EditText {
      */
     public EditNumber(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init();
     }
 
     private void init() {
         final InputFilter[] filters = new InputFilter[] {
-                // DigitsKeyListener.getInstance(true, true)
+                DigitsKeyListener.getInstance(true, true)
         };
         setFilters(filters);
     }

@@ -16,8 +16,10 @@ import com.example.aatg.tc.R.id;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
+import android.text.InputType;
 import static android.test.ViewAsserts.*;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
@@ -204,7 +206,12 @@ public class TemperatureConverterActivityTest extends
     /******************************************************************************
      * InputFilter Test
      ******************************************************************************/
-    public void testInputFilter() throws Throwable {
+    public final void testEditTextが英数入力モード() {
+        assertEquals(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, mCelsius.getInputType());
+        assertEquals(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS, mFahrenheit.getInputType());
+    }
+
+    public void testInputFilterが機能する() throws Throwable {
         runTestOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -213,7 +220,18 @@ public class TemperatureConverterActivityTest extends
         });
 
         final Double n = -1.234d;
-        sendKeys("MINUS 1 PERIOD 2 PERIOD 3 PERIOD 4"); // このように（ピリオドをあいだにわざと入れて）キーを押したときのテスト
+        //sendKeys("MINUS 1 PERIOD 2 PERIOD 3 PERIOD 4"); // このように（ピリオドをあいだにわざと入れて）キーを押したときのテスト
+        // @see http://blog.cnu.jp/2010/02/25/2%E3%81%A4%E3%81%AEsendkeys/
+        sendKeys(
+                KeyEvent.KEYCODE_MINUS,
+                KeyEvent.KEYCODE_1,
+                KeyEvent.KEYCODE_PERIOD,
+                KeyEvent.KEYCODE_2,
+                KeyEvent.KEYCODE_PERIOD,
+                KeyEvent.KEYCODE_3,
+                KeyEvent.KEYCODE_PERIOD,
+                KeyEvent.KEYCODE_4
+                );
         Object nr = null;
         try {
             nr = mCelsius.getNumber();

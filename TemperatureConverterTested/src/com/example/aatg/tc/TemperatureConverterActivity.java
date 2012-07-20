@@ -5,7 +5,10 @@ import com.example.aatg.tc.TemperatureConverter.Operation;
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 
 public class TemperatureConverterActivity extends Activity {
     EditNumber mCelsius;
@@ -20,7 +23,6 @@ public class TemperatureConverterActivity extends Activity {
         mFahrenheit = (EditNumber) findViewById(R.id.fahrenheit);
         mCelsius.addTextChangedListener(new TemperatureChangedWatcher(Operation.C2F));
         mFahrenheit.addTextChangedListener(new TemperatureChangedWatcher(Operation.F2C));
-
     }
 
     /**
