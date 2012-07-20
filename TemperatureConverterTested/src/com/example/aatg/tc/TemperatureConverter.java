@@ -14,6 +14,7 @@ package com.example.aatg.tc;
  */
 public class TemperatureConverter {
 
+    public static enum Operation {C2F, F2C}
     public static final double ABSOLUTE_ZERO_C = -273.15d;
     public static final double ABSOLUTE_ZERO_F = -459.67d;
 
@@ -26,6 +27,13 @@ public class TemperatureConverter {
             throw new InvalidTemperatureException(String.format(ERROR_MESSAGE_BELOW_ZERO_FMT, fahrenheit, 'F'));
         }
         return ((fahrenheit - 32) / 1.8d);
+    }
+
+    public static double celsiusToFahrenheit(double celsius) {
+        if (celsius < ABSOLUTE_ZERO_C) {
+            throw new InvalidTemperatureException(String.format(ERROR_MESSAGE_BELOW_ZERO_FMT, celsius, 'C'));
+        }
+        return (celsius * 1.8d + 32);
     }
 
 }

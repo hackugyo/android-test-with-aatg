@@ -181,7 +181,7 @@ public class TemperatureConverterActivityTest extends
     }
 
     /******************************************************************************
-     * Tmeperature conersion
+     * Temperature conersion
      ******************************************************************************/
     @UiThreadTest
     public final void test華氏Fから摂氏Cへ変換して表示できる() {
@@ -199,5 +199,28 @@ public class TemperatureConverterActivityTest extends
         final StringBuilder msg = new StringBuilder();
         msg.append(f).append("F -> ").append(expectedC).append("C but was ").append(actualC).append("C (delta ").append(delta).append(")");
         assertTrue(msg.toString(), delta < 0.005);
+    }
+
+    /******************************************************************************
+     * InputFilter Test
+     ******************************************************************************/
+    public void testInputFilter() throws Throwable {
+        runTestOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mCelsius.requestFocus();
+            }
+        });
+
+        final Double n = -1.234d;
+        sendKeys("MINUS 1 PERIOD 2 PERIOD 3 PERIOD 4"); // このように（ピリオドをあいだにわざと入れて）キーを押したときのテスト
+        Object nr = null;
+        try {
+            nr = mCelsius.getNumber();
+        } catch (NumberFormatException e) {
+            nr = mCelsius.getText();
+        }
+        final String msg = "-1.2.3.4 should be filtered to " + n + " but is " + nr;
+        assertEquals(msg, n, nr);
     }
 }
